@@ -10,11 +10,18 @@
     <script src="dist/vue.js"></script>
     <script>
       console.log(Vue);
-      new Vue({
+      let vm = new Vue({
         el: "#app",
-        data: {},
+        data() {
+          console.log(this);
+          return {
+            message: "Hello word",
+            msg: { b: 20 },
+          };
+        },
         watch: {},
       });
+      console.log(vm._data);
     </script>
   </body>
 </html>
