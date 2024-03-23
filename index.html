@@ -17,11 +17,12 @@
           return {
             message: "Hello word",
             msg: { b: 20 },
+            list: [1, 2, 3],
           };
         },
         watch: {},
       });
-      console.log(vm._data);
+      console.log(vm._data.list.push(4));
     </script>
   </body>
 </html>
