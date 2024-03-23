@@ -23,7 +23,6 @@ export function initState(vm) {
 function initProps() {}
 // 对Data的初始化
 function initData(vm) {
-  console.log("data初始化");
   // 数据初始化 1.对象 2.函数
   let data = vm.$options.data;
   // 这里data使用call把this指向了vue

@@ -50,7 +50,6 @@ function defineReactive(data, key, value) {
   observer(value);
   Object.defineProperty(data, key, {
     get() {
-      console.log("获取");
       return value;
     },
     set(newValue) {
@@ -59,7 +58,6 @@ function defineReactive(data, key, value) {
         return value;
       }
       observer(newValue); // 如果用户设置的值是对象进行递归
-      console.log("设置");
       value = newValue;
     },
   });
