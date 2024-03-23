@@ -28,10 +28,27 @@ function initData(vm) {
   let data = vm.$options.data;
   // 这里data使用call把this指向了vue
   data = vm._data = typeof data === "function" ? data.call(vm) : data;
+
+  // data{} 1.对象 2.数组
+  // 将data山所有属性代理到实例上： {a: 1, b:2}
+  for (let key in data) {
+    proxy(vm, "_data", key);
+  }
+
   // 对数据进行劫持
   observer(data);
-  // data{} 1.对象 2.数组
 }
 function initWatch() {}
 function initComputed() {}
 function initMethods() {}
+
+function proxy(vm, source, key) {
+  Object.defineProperty(vm, key, {
+    get() {
+      return vm[source][key];
+    },
+    set(newValue) {
+      vm[source][key] = newValue;
+    },
+  });
+}

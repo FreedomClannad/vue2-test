@@ -1,5 +1,7 @@
 import { ArrayMethods } from "./arr";
 export function observer(data) {
+  // 给value 定义一个属性
+
   // 1.判断
   if (typeof data !== "object" || data === null) {
     return data;
@@ -12,13 +14,17 @@ export function observer(data) {
 
 class Observer {
   constructor(value) {
+    Object.defineProperty(value, "__ob__", {
+      enumerable: false,
+      value: this,
+    });
     // 判断数据
     if (Array.isArray(value)) {
       // 使用函数劫持
       // __proto__ 数组的原型
       value.__proto__ = ArrayMethods;
       // 如果你是数组对象
-      this.observerArray(); // 处理数组对象的劫持
+      this.observerArray(value); // 处理数组对象的劫持
     } else {
       this.walk(value); // 遍历
     }
@@ -34,6 +40,9 @@ class Observer {
   }
   observerArray(value) {
     // [{a: 1}]
+    for (let i = 0; i < value.length; i++) {
+      observer(value[i]);
+    }
   }
 }
 // 对象中的属性进行劫持
