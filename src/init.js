@@ -1,4 +1,5 @@
 import { initState } from "./initState";
+import { compileToFunction } from "./compile/index";
 export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
     let vm = this;
@@ -14,7 +15,6 @@ export function initMixin(Vue) {
 
   // 创建$mount
   Vue.prototype.$mount = function (el) {
-    console.log(el);
     // el template render
     let vm = this;
     el = document.querySelector(el); // 获取元素
@@ -24,7 +24,14 @@ export function initMixin(Vue) {
       if (!template && el) {
         // 获取html
         el = el.outerHTML;
-        console.log(el);
+
+        // console.log(el);
+        // <div id="app">Hello Word{{message}}</div>
+        // 变成ast语法树
+        let ast = compileToFunction(el);
+        // render()
+
+        //
       }
     }
   };
